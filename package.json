@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/kburchill/aAsoloProjectReactKB/issues"
   },
-  "homepage": "https://github.com/kburchill/aAsoloProjectReactKB#readme"
+  "homepage": "https://github.com/kburchill/aAsoloProjectReactKB#readme",
+  "dependencies": {
+    "google-map-react": "^2.1.9"
+  }
 }
