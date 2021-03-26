@@ -6,6 +6,8 @@ import './index.css';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import * as sessionActions from './store/session';
+import { ModalProvider } from './context/Modal'
 import App from './App';
 
 import configureStore from './store';
@@ -17,6 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
 
   window.csrfFetch = csrfFetch;
   window.store = store;
+  window.sessionActions = sessionActions;
 }
 
 function Root() {
