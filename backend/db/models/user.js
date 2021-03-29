@@ -4,17 +4,25 @@ const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    username: {
-      type: DataTypes.STRING,
+    // username: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    //   validate: {
+    //     len: [3, 30],
+    //     isNotEmail(value) {
+    //       if (Validator.isEmail(value)) {
+    //         throw new Error('Cannot be an email.');
+    //       }
+    //     },
+    //   },
+    // },
+    firstName: {
       allowNull: false,
-      validate: {
-        len: [3, 30],
-        isNotEmail(value) {
-          if (Validator.isEmail(value)) {
-            throw new Error('Cannot be an email.');
-          }
-        },
-      },
+      type: DataTypes.STRING(50),
+    },
+    lastName: {
+      allowNull: false,
+      type: DataTypes.STRING(50),
     },
     email: {
       type: DataTypes.STRING,
@@ -88,6 +96,6 @@ module.exports = (sequelize, DataTypes) => {
     });
     return await User.scope('currentUser').findByPk(user.id);
   };
-  
+
   return User;
 };
