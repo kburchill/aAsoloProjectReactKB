@@ -27,6 +27,22 @@ const setTokenCookie = (res, user) => {
   return token;
 };
 
+const loginUser = (req, res, user) => {
+  req.session.userAuth = { userId: user.id};
+}
+
+const logoutUser = (req, res) => {
+  delete req.session.userAuth;
+}
+
+const requireAuth = (req, res, next) => {
+  if (!res.locals.authenticated) {
+    return res.redirect('/users');
+  }
+  return next();
+}
+
+
 const restoreUser = (req, res, next) => {
   // token parsed from cookies
   const { token } = req.cookies;
@@ -67,4 +83,4 @@ const requireAuth = [
 
 
 
-module.exports = { setTokenCookie, restoreUser, requireAuth };
+module.exports = { setTokenCookie, restoreUser, requireAuth, loginUser, logoutUser };

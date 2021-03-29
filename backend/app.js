@@ -5,6 +5,7 @@ const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
+const bookingsRouter = require('./routes/api/bookings')
 const app = express();
 const { ValidationError } = require('sequelize');
 
@@ -43,6 +44,9 @@ app.use(
 );
 
 app.use(routes); // Connect all the routes, must be below the above csurf function
+
+app.use("/bookings", bookingsRouter);
+
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
