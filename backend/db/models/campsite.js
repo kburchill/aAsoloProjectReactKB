@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     location: DataTypes.STRING
   }, {});
   Campsite.associate = function(models) {
-    // associations can be defined here
+    Campsite.hasMany(models.Booking, { foreignKey: "campsiteId"});
+    Campsite.hasMany(models.Reviw, { foreignKey: "campsiteId"});
   };
   return Campsite;
 };
