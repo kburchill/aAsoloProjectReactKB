@@ -10,6 +10,6 @@ router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
 router.use("/bookings", bookingsRouter);
-// router.use("/campsites", campsitesRouter);
+router.use("/campsites", campsitesRouter);
 
 module.exports = router;

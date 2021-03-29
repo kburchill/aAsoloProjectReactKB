@@ -1,7 +1,7 @@
 const { Campsite } = require('../../db/models');
 const {asyncHandler, findCurrentUser } = require('./utils');
 const express = require('express');
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { requireAuth } = require('../../utils/auth');
 
 const campsitesRouter = express.Router();
 
