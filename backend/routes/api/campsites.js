@@ -45,3 +45,5 @@ campsitesRouter.post(
     res.redirect(`/bookings`)
   })
 )
+
+module.exports = campsitesRouter;

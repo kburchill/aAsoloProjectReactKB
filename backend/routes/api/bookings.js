@@ -22,3 +22,4 @@ bookingsRouter.get(
   })
 )
 
+module.exports = bookingsRouter;
