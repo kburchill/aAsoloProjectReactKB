@@ -1,5 +1,7 @@
 import { useEffect, useState} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from 'react-router-dom';
+import { getCampsites } from '../../store/campsites'
 
 const PARKS = [
   "Yosemite National Park",
@@ -9,13 +11,19 @@ const PARKS = [
 ]
 // Need to figure out how to use date range
 
-function CampsiteBook({campsites}) {
+function CampsiteBook() {
 
   const [park, setPark] = useState(PARKS[0])
   const [date, setDate] = useState("")
   const [errors, setErrors] = useState([])
   const history = useHistory();
+  const dispatch = useDispatch();
+  const sessionUser = useSelector(state => state.session.user);
 
+  useEffect(() => {
+    dispatch(getCampsites());
+  }, [dispatch])
+  
   useEffect(() => {
 
     const errors = []

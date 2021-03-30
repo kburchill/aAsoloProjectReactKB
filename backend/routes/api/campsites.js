@@ -12,11 +12,7 @@ campsitesRouter.get(
   "/",
   asyncHandler( async (req, res) => {
     const campsites = await Campsite.findAll();
-
-    res.render("campsites", {
-      title: "Campsites",
-      campsites
-    })
+    res.json(campsites)
   })
 )
 
@@ -28,10 +24,7 @@ campsitesRouter.get(
       where: { campsiteId: campsiteId}
     });
 
-    res.render("campsite", {
-      title: "Campsite",
-      campsite
-    })
+    res.json(campsite)
   })
 )
 

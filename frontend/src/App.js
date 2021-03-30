@@ -9,7 +9,6 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
 
-
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -29,7 +28,7 @@ function App() {
             <SignupFormPage />
           </Route>
           <Route path="/bookings">
-            <Bookings user={user} />
+            <Bookings />
           </Route>
         </Switch>
       )}

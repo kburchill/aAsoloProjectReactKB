@@ -1,4 +1,8 @@
 'use strict';
+
+//Maybe need this??
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   const Campsite = sequelize.define('Campsite', {
     name: DataTypes.STRING,
