@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import Bookings from "./components/Bookings";
+import CampsiteBook from "./components/CampsiteBook"
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/bookings">
             <Bookings />
+          </Route>
+          <Route path="/search">
+            <CampsiteBook />
           </Route>
         </Switch>
       )}

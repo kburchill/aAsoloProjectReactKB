@@ -6,7 +6,7 @@ const UserBookings = ({booking}) => {
 
   return (
     <div>
-      Campsite: {booking.campsiteId}
+      Campsite: {booking.Campsite.name}
       Start Date:{booking.dateStart}
     </div>
   )

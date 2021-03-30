@@ -1,4 +1,4 @@
-const { Booking } = require('../../db/models');
+const { Booking, Campsite } = require('../../db/models');
 const { asyncHandler, findCurrentUser } = require('./utils');
 const express = require('express');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
@@ -12,7 +12,8 @@ bookingsRouter.get(
   asyncHandler(async (req, res) => {
     const userId = Number(req.params.id);
     const userBookings = await Booking.findAll({
-      where: { userId: userId }
+      where: { userId: userId },
+      include: { model: Campsite }
     });
 
     res.json(userBookings)

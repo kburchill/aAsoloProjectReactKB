@@ -1,4 +1,4 @@
-// frontend/src/components/Bookings/index.js
+// frontend/src/components/BookingsPage/index.js
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
