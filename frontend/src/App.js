@@ -8,31 +8,32 @@ import Bookings from "./components/Bookings";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
-console.log(sessionActions.user);
+
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
-
+  const user = dispatch(sessionActions.getUser());
   return (
     <>
-    <Navigation isLoaded={isLoaded} />
-    {isLoaded && (
-      <Switch>
-       <Route path="/login">
-         <LoginFormPage />
-       </Route>
-       <Route path="/signup">
-         <SignupFormPage />
-       </Route>
-       <Route path="/bookings">
-         <Bookings />
-       </Route>
-      </Switch>
-    )}
-  </>
+      <Navigation isLoaded={isLoaded} />
+      {isLoaded && (
+        <Switch>
+          <Route path="/login">
+            <LoginFormPage />
+          </Route>
+          <Route path="/signup">
+            <SignupFormPage />
+          </Route>
+          <Route path="/bookings">
+            <Bookings user={user} />
+          </Route>
+        </Switch>
+      )}
+    </>
   );
 }
 
