@@ -11,7 +11,11 @@ function Navigation({ isLoaded }){
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
+      <>
       <ProfileButton user={sessionUser} />
+      <NavLink to="/search">Search</NavLink>
+      <NavLink to="/bookings">Current Bookings</NavLink>
+      </>
     );
   } else {
     sessionLinks = (
@@ -19,7 +23,6 @@ function Navigation({ isLoaded }){
         <NavLink to="/login">Log In</NavLink>
         <NavLink to="/signup">Sign Up</NavLink>
         <NavLink to="/search">Search</NavLink>
-        <NavLink to="/bookings">Current Bookings</NavLink>
       </>
     );
   }

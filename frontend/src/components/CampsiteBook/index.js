@@ -1,5 +1,8 @@
 import { useEffect, useState} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from 'react-router-dom';
+import { getCampsites } from '../../store/campsites';
+import Campsites from './Campsites';
 
 const PARKS = [
   "Yosemite National Park",
@@ -9,15 +12,16 @@ const PARKS = [
 ]
 // Need to figure out how to use date range
 
-function CampsiteBook({campsites}) {
+function CampsiteBook() {
 
   const [park, setPark] = useState(PARKS[0])
   const [date, setDate] = useState("")
   const [errors, setErrors] = useState([])
-  const history = useHistory();
+  const dispatch = useDispatch();
+  const sessionUser = useSelector(state => state.session.user);
+  const campsites = useSelector(state => state.search) || [];
 
   useEffect(() => {
-
     const errors = []
     if (!date) {
      errors.push("Please enter your desired dates")
@@ -27,14 +31,11 @@ function CampsiteBook({campsites}) {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log({
-      park,
-      date
-    })
-    history.push("/");
+    dispatch(getCampsites(park))
   };
 
   return (
+    <>
     <form className="booking-form" onSubmit={onSubmit}>
       <h2>Book a campsite</h2>
       <ul className="errors">
@@ -65,6 +66,8 @@ function CampsiteBook({campsites}) {
       </label>
       <button type="submit" disabled={!!errors.length}>Search availability</button>
     </form>
+      {campsites.map(campsite => <Campsites campsite={campsite} key={campsite.id} />)}
+    </>
   );
 }
 

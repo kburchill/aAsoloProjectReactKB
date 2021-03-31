@@ -9,7 +9,7 @@ module.exports = {
         firstName: 'Demo',
         lastName: 'User',
         email: 'Demo@User.com',
-        hashedPassword: 'demonineletters',
+        hashedPassword: bcrypt.hashSync('password'),
         createdAt: new Date(),
         updatedAt: new Date()
       }
