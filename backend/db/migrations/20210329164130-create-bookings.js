@@ -11,7 +11,7 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {model: "Users"}
+        references: { model: "Users" }
       },
       dateStart: {
         type: Sequelize.DATE,
@@ -24,7 +24,7 @@ module.exports = {
       campsiteId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {model: "Campsites"}
+        references: { model: "Campsites" }
       },
       createdAt: {
         allowNull: false,

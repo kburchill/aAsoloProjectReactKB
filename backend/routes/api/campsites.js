@@ -4,10 +4,9 @@ const express = require('express');
 const { requireAuth } = require('../../utils/auth');
 
 const campsitesRouter = express.Router();
-
 campsitesRouter.use(requireAuth)
 
-
+//GET /api/parks/:id/campsites
 campsitesRouter.get(
   "/",
   asyncHandler( async (req, res) => {
@@ -15,11 +14,13 @@ campsitesRouter.get(
     res.json(campsites)
   })
 )
-
+//GET /api/parks/:id/campsites/:id
 campsitesRouter.get(
-  "/:id(\\d+)",
+  "/:campsiteId(\\d+)",
   asyncHandler( async (req, res) => {
-    const campsiteId = req.params;
+    const campsiteId = req.params.campsiteId;
+    const parkId = req.params.parkId; //available because park router
+    //
     const campsite = await Campsite.findAll({
       where: { campsiteId: campsiteId}
     });
