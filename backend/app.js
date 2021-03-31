@@ -34,15 +34,15 @@ app.use(helmet({
 
 // Set the _csrf token and create req.csrfToken method
 //comment out for postman testing
-// app.use(
-//   csurf({
-//     cookie: {
-//       secure: isProduction,
-//       sameSite: isProduction && "Lax",
-//       httpOnly: true,
-//     },
-//   })
-// );
+app.use(
+  csurf({
+    cookie: {
+      secure: isProduction,
+      sameSite: isProduction && "Lax",
+      httpOnly: true,
+    },
+  })
+);
 
 app.use(routes); // Connect all the routes, must be below the above csurf function
 app.use(restoreUser);

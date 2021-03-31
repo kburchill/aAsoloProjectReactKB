@@ -6,7 +6,7 @@ const Campsites = ({campsite}) => {
     <div>
       <p>Campsite: {campsite.name}</p>
       <p>Cost Per Day:{campsite.pricePerDay}</p>
-      <p>Park: {campsite.park}</p>
+      <p>Park: {campsite.parkId}</p>
     </div>
   )
 }

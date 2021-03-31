@@ -1,43 +1,45 @@
 import { csrfFetch } from './csrf';
 
 const LOAD = 'search/LOAD';
+const LOAD_PARKS = 'search/LOAD_PARKS';
 
-const load = parks => ({
+const load = campsites => ({
   type: LOAD,
+  campsites,
+})
+const loadParks = parks => ({
+  type: LOAD_PARKS,
   parks,
 })
 
-export const getCampsites = (park) => async dispatch => {
-  const response = await csrfFetch(`/api/search/${park}`)
-  // export const getCampsites = ({park, dateStart, dateEnd}) => async dispatch => {
-  //   const response = await csrfFetch(`/api/search/${park}-${dateStart}-${dateEnd}`)
+export const getCampsites = (parkId) => async dispatch => {
+  const response = await csrfFetch(`/api/parks/${parkId}`)
 
-  // , {
-  //   method: "POST",
-  //   body: JSON.stringify(park)
-  // });
   if (response.ok) {
-    const parks = await response.json();
-    dispatch(load(parks));
-    return parks;
+    const campsites = await response.json();
+    dispatch(load(campsites));
+    return campsites;
   }
 }
 
-export const searchCampsites = (search) => async dispatch => {
-  const response = await csrfFetch(`/api/search/${search}`)
+
+export const getParks = () => async dispatch => {
+  const response = await csrfFetch('/api/parks')
+
   if (response.ok) {
     const parks = await response.json();
-    dispatch(load(parks));
-    return parks;
+    dispatch(loadParks(parks));
   }
-
 }
 
-const searchReducer = (state = [], action) => {
-  let newState;
+const searchReducer = (state = {parks: {}}, action) => {
+  let newState = {parks: {}};
   switch (action.type) {
-    case LOAD:
-      newState = action.parks;
+    case LOAD_PARKS:
+      const arr = action.parks.parks;
+      arr.forEach(park => {
+        newState.parks[park.id] = park;
+      })
       return newState;
     default:
       return state;
