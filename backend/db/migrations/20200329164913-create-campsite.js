@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
       },
       parkId: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: "Parks" }
       },

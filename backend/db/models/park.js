@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     postalcode: DataTypes.INTEGER
   }, {});
   Park.associate = function(models) {
-    // associations can be defined here
+    Park.hasMany(models.Campsite, { foreignKey: "parkId"});
   };
   return Park;
 };

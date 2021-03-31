@@ -6,8 +6,7 @@ module.exports = {
     return queryInterface.bulkInsert('Campsites', [
       {
         name: 'Rusty Dog',
-        park: 'Rocky Mountain National Park',
-        location: 'Colorado',
+        parkId: 1,
         description: 'Beautiful campground for those rusty dogs',
         pricePerDay: 10,
         createdAt: new Date(),
@@ -15,8 +14,7 @@ module.exports = {
       },
       {
         name: 'Silly Dog',
-        park: 'Yellowstone National Park',
-        location: 'Wyoming',
+        parkId: 2,
         description: 'Beautiful campground for those silly dogs',
         pricePerDay: 10,
         createdAt: new Date(),
@@ -24,8 +22,7 @@ module.exports = {
       },
       {
         name: 'Happy Dog',
-        park: 'Yosemite National Park',
-        location: 'California',
+        parkId: 3,
         description: 'Beautiful campground for those happy dogs',
         pricePerDay: 10,
         createdAt: new Date(),
