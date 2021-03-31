@@ -6,6 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import Bookings from "./components/Bookings";
 import CampsiteBook from "./components/CampsiteBook"
+
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -31,7 +32,7 @@ function App() {
           <Route path="/bookings">
             <Bookings />
           </Route>
-          <Route path="/search">
+          <Route path="/parks">
             <CampsiteBook />
           </Route>
         </Switch>

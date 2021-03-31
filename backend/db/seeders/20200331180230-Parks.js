@@ -23,7 +23,21 @@ module.exports = {
         city: 'Yosemite Village',
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      },
+      {
+        name: 'Zion National Park',
+        state: 'Utah',
+        city: 'Zion',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Grand Canyon National Park',
+        state: 'Arizona',
+        city: 'Grand Canyon Village',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ], {});
   },
 

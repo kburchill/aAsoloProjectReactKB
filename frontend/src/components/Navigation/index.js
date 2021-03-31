@@ -13,7 +13,7 @@ function Navigation({ isLoaded }){
     sessionLinks = (
       <>
       <ProfileButton user={sessionUser} />
-      <NavLink to="/search">Search</NavLink>
+      <NavLink to="/parks">Search</NavLink>
       <NavLink to="/bookings">Current Bookings</NavLink>
       </>
     );
@@ -22,7 +22,7 @@ function Navigation({ isLoaded }){
       <>
         <NavLink to="/login">Log In</NavLink>
         <NavLink to="/signup">Sign Up</NavLink>
-        <NavLink to="/search">Search</NavLink>
+        <NavLink to="/parks">Search</NavLink>
       </>
     );
   }
