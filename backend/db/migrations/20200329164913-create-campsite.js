@@ -14,7 +14,6 @@ module.exports = {
       },
       parkId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: { model: "Parks" }
       },
       description: {

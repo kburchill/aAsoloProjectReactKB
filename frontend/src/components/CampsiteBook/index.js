@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from 'react-router-dom';
-import { getCampsites, getParks } from '../../store/campsites';
+import { getParks, getCampsites} from '../../store/campsites';
 import Campsites from './Campsites';
 import './CampsiteBook.css';
 
@@ -34,19 +33,18 @@ function CampsiteBook() {
     dispatch(getParks());
   }, [dispatch]);
 
-  const onSubmit = e =>{
+  const onSubmit = async e => {
     e.preventDefault();
     //trying to load options with date restrictions
-    // if (errors.length === 0) {
-    //   const dateSearch = {park, dateStart, dateEnd}
-    //   console.log(dateSearch,"here-----------");
-    //   dispatch(getCampsites(dateSearch));
-    //   console.log(newCampsites)
-    //   setCampsites(newCampsites);
+    if (errors.length === 0) {
+      const dateSearch = {park, dateStart, dateEnd}
+      let newCampsites = await dispatch(getCampsites(dateSearch));
+      console.log(newCampsites)
+      setCampsites(newCampsites.campsites);
 
-    // } else if (errors.length >= 1) {
+    } else if (errors.length >= 1) {
     setCampsites(parksObjects[park].Campsites)
-    // }
+    }
   };
 
   return (
@@ -87,7 +85,8 @@ function CampsiteBook() {
             onChange={(e) => setEndDate(e.target.value)}
           />
         </label>
-        <button type="submit" className="searchButton">Search availability</button>
+
+        <button type="submit" className="searchButton"><i class="fas fa-search"></i></button>
         </div>
         <ul className="errors">
           {errors.map(error => (

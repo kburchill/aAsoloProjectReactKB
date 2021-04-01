@@ -6,7 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import Bookings from "./components/Bookings";
 import CampsiteBook from "./components/CampsiteBook"
-
+import CampsiteInfo from "./components/CampsiteInfo"
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -17,12 +17,14 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
-  const user = dispatch(sessionActions.getUser());
   return (
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route path="/" exact>
+            <CampsiteBook />
+          </Route>
           <Route path="/login">
             <LoginFormPage />
           </Route>
@@ -32,9 +34,13 @@ function App() {
           <Route path="/bookings">
             <Bookings />
           </Route>
-          <Route path="/parks">
+          <Route path="/parks" exact>
             <CampsiteBook />
           </Route>
+          <Route path="/parks/:parkId/campsites/:campsiteId">
+            <CampsiteInfo />
+          </Route>
+
         </Switch>
       )}
     </>

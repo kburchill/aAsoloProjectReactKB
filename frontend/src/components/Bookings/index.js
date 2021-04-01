@@ -1,10 +1,10 @@
 // frontend/src/components/BookingsPage/index.js
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookings } from '../../store/bookings';
 import UserBookings from './UserBookings';
-
+import './Bookings.css';
 //Show current bookings
 
 function Bookings() {

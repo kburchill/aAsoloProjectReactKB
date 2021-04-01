@@ -1,19 +1,37 @@
 
 
 .navBar {
-  margin-left: 60%;
+  /* margin-left: 60%; */
   /* margin-right: 25%; */
+  display: flex;
+
 }
-
-
+.navLinkEl {
+  padding: 5px;
+}
+.navLinks {
+  display: flex;
+  margin-left: 50px;
+  min-width: 225px;
+  min-height: 35px;
+  background-color: rgba(245, 245, 245, 0.835);
+  border-radius: 25px;
+  justify-content: space-between;
+  align-items:center;
+  padding: 10px;
+  position: fixed;
+}
 .booking-form {
   align-content: space-around;
-  margin-left: 25%;
-  margin-right: 25%;
+
 
   border-radius: 25px;
-  padding: 5%;
+  /* padding: 5%; */
 }
 body {
   background-color: whitesmoke;
+}
+
+.logoutButton {
+  background: transparent;
 }

@@ -24,11 +24,15 @@ bookingsRouter.post(
   "/",
   asyncHandler(async (req, res) => {
     const { userId, dateStart, dateEnd, campsiteId } = req.body;
-    const userBookings = await Booking.create({
+    let userBookings = await Booking.create({
       userId,
       dateStart,
       dateEnd,
       campsiteId
+    });
+    userBookings = await Booking.findAll({
+      where: { userId: userId },
+      include: { model: Campsite }
     });
     res.json(userBookings);
   })
