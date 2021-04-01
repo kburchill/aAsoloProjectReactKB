@@ -12,15 +12,21 @@ const loadParks = parks => ({
   parks,
 })
 
-export const getCampsites = (parkId) => async dispatch => {
-  const response = await csrfFetch(`/api/parks/${parkId}`)
-
-  if (response.ok) {
-    const campsites = await response.json();
-    dispatch(load(campsites));
-    return campsites;
-  }
-}
+// export const getCampsites = (dateSearch) => async dispatch => {
+//   const { park, dateStart, dateEnd } = dateSearch;
+//   const response = await csrfFetch(`/api/parks/${park}`, {
+//     method: 'POST',
+//     body: JSON.stringify({
+//       dateStart,
+//       dateEnd,
+//     })
+//   })
+//   if (response.ok) {
+//     const campsites = await response.json();
+//     dispatch(load(campsites));
+//     return campsites;
+//   }
+// }
 
 
 export const getParks = () => async dispatch => {
@@ -41,6 +47,9 @@ const searchReducer = (state = {parks: {}}, action) => {
         newState.parks[park.id] = park;
       })
       return newState;
+    // case LOAD:
+    //   newState =  action.campsites;
+    //   return newState;
     default:
       return state;
   }

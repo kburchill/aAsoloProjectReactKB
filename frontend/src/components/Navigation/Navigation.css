@@ -1,0 +1,19 @@
+
+
+.navBar {
+  margin-left: 60%;
+  /* margin-right: 25%; */
+}
+
+
+.booking-form {
+  align-content: space-around;
+  margin-left: 25%;
+  margin-right: 25%;
+
+  border-radius: 25px;
+  padding: 5%;
+}
+body {
+  background-color: whitesmoke;
+}
