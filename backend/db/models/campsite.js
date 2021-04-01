@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   Campsite.associate = function(models) {
     Campsite.hasMany(models.Booking, { foreignKey: "campsiteId"});
     Campsite.hasMany(models.Review, { foreignKey: "campsiteId"});
+    Campsite.hasMany(models.Imgurl, { foreignKey: "campsiteId"});
     Campsite.belongsTo(models.Park, { foreignKey: "parkId"});
   };
   return Campsite;

@@ -1,5 +1,6 @@
-const { Campsite, Park } = require('../../db/models');
+const { Campsite, Park, Booking, Imgurl } = require('../../db/models');
 const { asyncHandler, findCurrentUser } = require('./utils');
+const { Op } = require("sequelize");
 const express = require('express');
 const { requireAuth } = require('../../utils/auth');
 const campsitesRouter = require('./campsites')
@@ -19,15 +20,23 @@ parksRouter.get(
   })
 )
 
-parksRouter.get(
+parksRouter.post(
   "/:parkId",
   asyncHandler(async (req, res) => {
     const parkId = req.params.parkId;
+    const { dateStart, dateEnd } = req.body;
     const campsites = await Campsite.findAll({
       where:
-        { parkId: parkId }
+        { parkId: parkId },
+      include: {
+        model: Booking, where: {
+          dateStart: { [Op.notBetween]: [dateStart, dateEnd] },
+          dateEnd: { [Op.notBetween]: [dateStart, dateEnd] }
+        }
+      }
     })
-    res.json({ campsites });
+
+    return res.json({ campsites });
   })
 )
 

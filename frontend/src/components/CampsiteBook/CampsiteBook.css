@@ -1,0 +1,84 @@
+
+
+.eachCampsite {
+  flex-direction: column;
+  justify-content: center;
+  max-width: 500px;
+  border: 5px solid rgba(41, 245, 41, 0.466);
+  border-radius: 5px;
+  margin-left: 25%;
+  margin-right: 25%;
+
+}
+.eachCampsite > p {
+  padding-left: 30px;
+}
+
+.pictures {
+  width: 100%
+}
+.campPicture1 {
+  margin-left: 30px;
+  padding-right: 5%;
+  padding-left: 5%;
+  padding-bottom: 5%;
+  background-image:  url('../images/C8361B55-80C4-4330-917C-C452946E3313_1_105_c.jpeg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 75%;
+  height: 0;
+  padding-top: 66.64%;
+}
+.campPicture2 {
+  margin-left: 30px;
+  margin-right: 5%;
+  margin-bottom: 5%;
+  background-image: url('../images/IMG_1354.jpeg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 0;
+  padding-top: 66.64%;
+}
+.campPicture3 {
+  margin-left: 30px;
+  margin-right: 5%;
+  margin-bottom: 5%;
+  background-image: url('../images/IMG_1413.jpeg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 0;
+  padding-top: 66.64%;
+}
+
+p {
+  margin: 2px;
+}
+
+.searchHeader {
+  font-size: 52px;
+  line-height: 80px;
+  letter-spacing: 0px;
+  font-weight: 700;
+  text-align: center;
+  font-family: Calibre, Helvetica, Arial, sans-serif;
+  color: rgb(1, 3, 1)
+}
+
+.searchFields {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: rgb(149, 238, 183);
+  border-radius: 25px;
+}
+
+.searchButton {
+  border-radius: 25px;
+  background-color: whitesmoke;
+}
+
+.searchButton:hover {
+  background-color: rgb(106, 167, 129);
+}
