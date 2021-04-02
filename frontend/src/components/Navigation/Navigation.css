@@ -11,7 +11,7 @@
 }
 .navLinks {
   display: flex;
-  margin-left: 50px;
+  margin-left: -25px;
   min-width: 225px;
   min-height: 35px;
   background-color: rgba(245, 245, 245, 0.835);

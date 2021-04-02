@@ -2,7 +2,14 @@
 .body {
   background-image: url('../images/CampsiteCollage2.png');
 }
+.eachCampsite > a {
+  color:black;
 
+}
+.eachCampsite > a:hover {
+  color:rgb(255, 255, 255);
+
+}
 .eachCampsite {
   flex-direction: column;
   justify-content: center;
@@ -14,6 +21,7 @@
   min-width: 200px;
   transition: background-color 0.2s ease 0s;
   transition: all 0.4s ease 0s;
+  font-family: Helvetica;
 }
 .eachCampsite:hover {
 
@@ -22,7 +30,8 @@
   border: 5px solid transparent;
   max-width: 500px;
   margin-left: 25%;
-
+  font-size: 25px;
+  /* transform: rotate(360deg); */
 }
 .campResults {
   margin-left: 10%;
@@ -83,9 +92,10 @@
   display: flex;
   justify-content: space-between;
   padding: 15px;
-
+  font-size: 20px;
   border-radius: 25px;
 }
+
 .booking-form {
   padding-top: 10px;
   padding-right: 5%;

@@ -14,7 +14,6 @@ const Campsites = ({campsite, park}) => {
       <div className={`campPicture${campsite.id}`}></div>
       </div>
       </div>
-      {/* <img className="campPicture" src='/images/IMG_1354.jpeg' alt="whatever" /> */}
     </a>
     </div>
   )

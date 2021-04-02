@@ -13,12 +13,12 @@ const loadParks = parks => ({
 })
 
 export const getCampsites = (dateSearch) => async dispatch => {
-  const { park, dateStart, dateEnd } = dateSearch;
+  const { park, jsonDateStart, jsonDateEnd } = dateSearch;
   const response = await csrfFetch(`/api/parks/${park}`, {
     method: 'POST',
     body: JSON.stringify({
-      dateStart,
-      dateEnd,
+      jsonDateStart,
+      jsonDateEnd,
     })
   })
   if (response.ok) {
@@ -47,9 +47,9 @@ const searchReducer = (state = {parks: {}}, action) => {
         newState.parks[park.id] = park;
       })
       return newState;
-    // case LOAD:
-    //   newState =  action.campsites;
-    //   return newState;
+    case LOAD:
+      newState =  action.campsites;
+      return newState;
     default:
       return state;
   }

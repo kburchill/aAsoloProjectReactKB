@@ -20,7 +20,7 @@ function CampsiteBook() {
   // let newCampsites = useSelector(state => state.search.campsites)
 
   const parks = Object.values(parksObjects)
-
+  console.log(parks, "=====================parks")
   useEffect(() => {
     const errors = []
     if (!dateStart || !dateEnd) {
@@ -37,15 +37,23 @@ function CampsiteBook() {
     e.preventDefault();
     //trying to load options with date restrictions
     if (errors.length === 0) {
-      const dateSearch = {park, dateStart, dateEnd}
+      let jsonDateStart = JSON.stringify(dateStart);
+      let jsonDateEnd = JSON.stringify(dateEnd);
+      const dateSearch = {park, jsonDateStart, jsonDateEnd}
       let newCampsites = await dispatch(getCampsites(dateSearch));
-      console.log(newCampsites)
       setCampsites(newCampsites.campsites);
 
     } else if (errors.length >= 1) {
     setCampsites(parksObjects[park].Campsites)
     }
   };
+
+
+  useEffect(() => {
+    if (errors.length >= 1) {
+      setCampsites(parksObjects[park].Campsites)
+      }
+  }, [park]);
 
   return (
     <>
@@ -93,7 +101,9 @@ function CampsiteBook() {
             <li key={error}>{error}</li>
           ))}
         </ul>
-      {campsites.map(campsite => <Campsites campsite={campsite} park={parksObjects[park].name}key={campsite.id} />)}
+      {campsites.map(campsite => <Campsites campsite={campsite} park={parksObjects[park].name} key={campsite.id} />)}
+
+
       </form>
     </>
   );

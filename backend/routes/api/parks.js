@@ -4,7 +4,8 @@ const { Op } = require("sequelize");
 const express = require('express');
 var toDate = require('date-fns/toDate')
 const { requireAuth } = require('../../utils/auth');
-const campsitesRouter = require('./campsites')
+const campsitesRouter = require('./campsites');
+const bookingsRouter = require('./bookings');
 
 const parksRouter = express.Router();
 
@@ -25,17 +26,20 @@ parksRouter.post(
   "/:parkId",
   asyncHandler(async (req, res) => {
     const parkId = req.params.parkId;
-    const { dateStart, dateEnd } = req.body;
+    const { jsonDateStart, jsonDateEnd } = req.body;
 
-    const dateStartArray = dateStart.split('-')
-    const dateEndArray = dateEnd.split('-')
-    const newStart = Date([Number(dateStartArray[0]),(Number(dateStartArray[1]) - 1),Number(dateStartArray[2])])
-    const newEnd = Date([Number(dateEndArray[0]),(Number(dateEndArray[1]) - 1),Number(dateEndArray[2])])
-    // const newStart = toDate(dateStart)
-    // const newEnd = toDate(dateEnd)
+    // const dateStartArray = dateStart.split('-')
+    // const dateEndArray = dateEnd.split('-')
+    // const newStart = Date([Number(dateStartArray[0]),(Number(dateStartArray[1]) - 1),Number(dateStartArray[2])])
+    // const newEnd = Date([Number(dateEndArray[0]),(Number(dateEndArray[1]) - 1),Number(dateEndArray[2])])
+    const newStart = new Date(Date.parse(jsonDateStart))
+    const newEnd = new Date(Date.parse(jsonDateEnd))
+
 
     console.log(newStart, "here is the start date--------");
     console.log(newEnd, "here is the end date--------test");
+    const printBookings = await Booking.findAll();
+    console.log(printBookings);
     const campsites = await Campsite.findAll({
       where:
         { parkId: parkId },
@@ -46,8 +50,29 @@ parksRouter.post(
         }
       }
     })
+    const bookedCampsites = await Campsite.findAll({
+      where:
+        { parkId: parkId },
+      include: {
+        model: Booking, where: {
+          dateStart: { [Op.Between]: [newStart, newEnd] },
+          dateEnd: { [Op.Between]: [newStart, newEnd] }
+        }
+      }
+    })
+    let availCampsites = [];
 
-    return res.json({ campsites });
+    for (campsite of campsites) {
+      console.log(campsite, "here==================")
+
+      if (!bookedCampsites.includes(campsite.id)){
+        availCampsites.push(campsite);
+      }
+    }
+    console.log(availCampsites, "===============================");
+    // console.log(availCampsites, "campsites=============================");
+    // console.log(campsites[0].Bookings, "Bookings=============================");
+    return res.json( {availCampsites} );
   })
 )
 

@@ -37,6 +37,9 @@ function App() {
           <Route path="/parks" exact>
             <CampsiteBook />
           </Route>
+          {/* <Route path="/parks/:parkId">
+            <ParkInfo />
+          </Route> */}
           <Route path="/parks/:parkId/campsites/:campsiteId">
             <CampsiteInfo />
           </Route>
