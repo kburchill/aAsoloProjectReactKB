@@ -12,21 +12,20 @@ const loadParks = parks => ({
   parks,
 })
 
-// export const getCampsites = (dateSearch) => async dispatch => {
-//   const { park, dateStart, dateEnd } = dateSearch;
-//   const response = await csrfFetch(`/api/parks/${park}`, {
-//     method: 'POST',
-//     body: JSON.stringify({
-//       dateStart,
-//       dateEnd,
-//     })
-//   })
-//   if (response.ok) {
-//     const campsites = await response.json();
-//     dispatch(load(campsites));
-//     return campsites;
-//   }
-// }
+export const getCampsites = (dateSearch) => async dispatch => {
+  const { park, jsonDateStart, jsonDateEnd } = dateSearch;
+  const response = await csrfFetch(`/api/parks/${park}`, {
+    method: 'POST',
+    body: JSON.stringify({
+      jsonDateStart,
+      jsonDateEnd,
+    })
+  })
+  if (response.ok) {
+    const campsites = await response.json();
+    return dispatch(load(campsites));
+  }
+}
 
 
 export const getParks = () => async dispatch => {
@@ -34,7 +33,7 @@ export const getParks = () => async dispatch => {
 
   if (response.ok) {
     const parks = await response.json();
-    dispatch(loadParks(parks));
+    return dispatch(loadParks(parks));
   }
 }
 
@@ -47,9 +46,10 @@ const searchReducer = (state = {parks: {}}, action) => {
         newState.parks[park.id] = park;
       })
       return newState;
-    // case LOAD:
-    //   newState =  action.campsites;
-    //   return newState;
+    case LOAD:
+      newState =  {...state}
+      newState[action.campsites.id] = action.campsites
+      return newState;
     default:
       return state;
   }
