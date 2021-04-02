@@ -28,25 +28,12 @@ function CampsiteInfo() {
     setErrors(errors);
   }, [dateStart, dateEnd])
 
-  // useEffect(() => {
-  //   dispatch(getBooking(sessionUser));
-  // }, [dispatch]);
 
   const onSubmit = e =>{
     e.preventDefault();
-    //trying to load options with date restrictions
-    // if (errors.length === 0) {
-    //   const dateSearch = {park, dateStart, dateEnd}
-    //   console.log(dateSearch,"here-----------");
-    //   dispatch(getCampsites(dateSearch));
-    //   console.log(newCampsites)
-    //   setCampsites(newCampsites);
-
-    // } else if (errors.length >= 1) {
       const userId = sessionUser.id;
-      console.log({userId, dateStart, dateEnd, campsiteId}, "this happened ----------------------")
       dispatch(createBooking({userId, dateStart, dateEnd, campsiteId}))
-    // }
+
   };
 
   return (
@@ -74,6 +61,10 @@ function CampsiteInfo() {
 
         </label>
     <button type="submit" disabled={errors.length}>Book</button>
+    <div className="pictures">
+    <div className={`campPicture${campsiteId} picture`}></div>
+    </div>
+    <h2 className="reviewHeader">{`Reviews of`}</h2>
   <div classname="reviews">
   This campsite was awesome!
   </div>

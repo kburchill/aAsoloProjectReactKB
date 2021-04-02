@@ -1,4 +1,4 @@
-const { Campsite, Park, Booking, Imgurl } = require('../../db/models');
+const { Campsite, Park, Booking, sequelize } = require('../../db/models');
 const { asyncHandler, findCurrentUser } = require('./utils');
 const { Op } = require("sequelize");
 const express = require('express');
@@ -28,51 +28,33 @@ parksRouter.post(
     const parkId = req.params.parkId;
     const { jsonDateStart, jsonDateEnd } = req.body;
 
-    // const dateStartArray = dateStart.split('-')
-    // const dateEndArray = dateEnd.split('-')
-    // const newStart = Date([Number(dateStartArray[0]),(Number(dateStartArray[1]) - 1),Number(dateStartArray[2])])
-    // const newEnd = Date([Number(dateEndArray[0]),(Number(dateEndArray[1]) - 1),Number(dateEndArray[2])])
-    const newStart = new Date(Date.parse(jsonDateStart))
-    const newEnd = new Date(Date.parse(jsonDateEnd))
+    const startSeconds = Date.parse(jsonDateStart)
+    const endSeconds = Date.parse(jsonDateEnd)
+    if (isNaN(startSeconds) || isNaN(endSeconds)) {
+      throw "Passed invalid dates"
+    }
+    const newStart = new Date(startSeconds)
+    const newEnd = new Date(endSeconds)
 
-
-    console.log(newStart, "here is the start date--------");
-    console.log(newEnd, "here is the end date--------test");
-    const printBookings = await Booking.findAll();
-    console.log(printBookings);
     const campsites = await Campsite.findAll({
       where:
-        { parkId: parkId },
-      include: {
-        model: Booking, where: {
-          dateStart: { [Op.notBetween]: [newStart, newEnd] },
-          dateEnd: { [Op.notBetween]: [newStart, newEnd] }
+      {
+        parkId: parkId,
+        id:
+        {
+          [Op.notIn]: sequelize.literal(`
+          (SELECT "Campsites"."id" FROM "Campsites"
+          JOIN "Bookings" ON "Campsites"."id" = "Bookings"."campsiteId"
+          WHERE "Bookings"."dateStart" <= '${newEnd.toISOString()}'
+          AND "Bookings"."dateEnd" >= '${newStart.toISOString()}'
+          AND "Campsites"."parkId" = '${parkId}')
+          `)
         }
-      }
-    })
-    const bookedCampsites = await Campsite.findAll({
-      where:
-        { parkId: parkId },
-      include: {
-        model: Booking, where: {
-          dateStart: { [Op.Between]: [newStart, newEnd] },
-          dateEnd: { [Op.Between]: [newStart, newEnd] }
-        }
-      }
-    })
-    let availCampsites = [];
+      },
 
-    for (campsite of campsites) {
-      console.log(campsite, "here==================")
-
-      if (!bookedCampsites.includes(campsite.id)){
-        availCampsites.push(campsite);
-      }
-    }
-    console.log(availCampsites, "===============================");
-    // console.log(availCampsites, "campsites=============================");
-    // console.log(campsites[0].Bookings, "Bookings=============================");
-    return res.json( {availCampsites} );
+    })
+    console.log(campsites, "campsites in router===============")
+    return res.json(campsites);
   })
 )
 

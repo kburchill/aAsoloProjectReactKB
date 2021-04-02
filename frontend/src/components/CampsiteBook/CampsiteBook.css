@@ -13,12 +13,12 @@
 .eachCampsite {
   flex-direction: column;
   justify-content: center;
-  max-width: 300px;
+  max-width: 400px;
   border: 5px solid  rgba(0, 197, 135, 0.685);
   border-radius: 5px;
   margin-left: 20%;
   margin-right: 25%;
-  min-width: 200px;
+  min-width: 250px;
   transition: background-color 0.2s ease 0s;
   transition: all 0.4s ease 0s;
   font-family: Helvetica;
@@ -30,48 +30,67 @@
   border: 5px solid transparent;
   max-width: 500px;
   margin-left: 25%;
-  font-size: 25px;
+  font-size: 20px;
   /* transform: rotate(360deg); */
 }
 .campResults {
   margin-left: 10%;
 }
+
 .pictures {
-  width: 100%
+  width: 100%;
+
 }
-.campPicture1 {
-  /* margin-left: 5%; */
+
+.picture {
   padding-right: 5%;
   padding-left: 5%;
   padding-bottom: 5%;
-  background-image:  url('../images/C8361B55-80C4-4330-917C-C452946E3313_1_105_c.jpeg');
   background-size: contain;
   background-repeat: no-repeat;
   width: 75%;
   height: 0;
   padding-top: 66.64%;
+  max-width: 400px;
 }
-.campPicture2 {
-  /* margin-left: 5%; */
-  margin-right: 5%;
-  margin-bottom: 5%;
-  background-image: url('../images/IMG_1354.jpeg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 0;
-  padding-top: 66.64%;
+.campPicture1 {
+  background-image:  url('../images/Rocky1.jpeg');
+}
+.campPicture2 > div{
+  background-image: url('../images/Rocky2.jpeg');
 }
 .campPicture3 {
-  /* margin-left: 5%; */
-  margin-right: 5%;
-  margin-bottom: 5%;
-  background-image: url('../images/IMG_1413.jpeg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 0;
-  padding-top: 66.64%;
+  background-image: url('../images/Rocky3.jpeg');
+}
+.campPicture4 {
+  background-image: url('../images/Yellowstone1.jpeg');
+}
+.campPicture5 {
+  background-image: url('../images/Yellowstone2.jpeg');
+}
+.campPicture6 {
+  background-image: url('../images/Yellowstone3.jpeg');
+}
+.campPicture7 {
+  background-image: url('../images/Yosemite1.jpeg');
+}
+.campPicture8 {
+  background-image: url('../images/Yosemite2.jpeg');
+}
+.campPicture9 {
+  background-image: url('../images/Yosemite3.jpeg');
+}
+.campPicture10 {
+  background-image: url('../images/Yosemite4.jpeg');
+}
+.campPicture11 {
+  background-image: url('../images/Grand1.jpeg');
+}
+.campPicture12 {
+  background-image: url('../images/Grand2.jpeg');
+}
+.campPicture13 {
+  background-image: url('../images/Grand3.jpeg');
 }
 
 

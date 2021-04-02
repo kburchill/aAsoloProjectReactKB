@@ -23,8 +23,7 @@ export const getCampsites = (dateSearch) => async dispatch => {
   })
   if (response.ok) {
     const campsites = await response.json();
-    dispatch(load(campsites));
-    return campsites;
+    return dispatch(load(campsites));
   }
 }
 
@@ -34,7 +33,7 @@ export const getParks = () => async dispatch => {
 
   if (response.ok) {
     const parks = await response.json();
-    dispatch(loadParks(parks));
+    return dispatch(loadParks(parks));
   }
 }
 
@@ -48,7 +47,8 @@ const searchReducer = (state = {parks: {}}, action) => {
       })
       return newState;
     case LOAD:
-      newState =  action.campsites;
+      newState =  {...state}
+      newState[action.campsites.id] = action.campsites
       return newState;
     default:
       return state;
