@@ -1,8 +1,10 @@
 
+import { remove } from 'js-cookie';
 import { csrfFetch } from './csrf';
 
 const LOAD = 'bookings/LOAD';
 const ADD_ONE = 'bookings/ADD_ONE';
+const REMOVE_BOOKING = 'bookings/removeBooking';
 
 const load = list => ({
   type: LOAD,
@@ -12,6 +14,11 @@ const addBooking = newBooking => ({
   type: ADD_ONE,
   newBooking,
 })
+const removeBooking = () => {
+  return {
+    type: REMOVE_BOOKING,
+  }
+}
 
 export const getBookings = (id) => async dispatch => {
   const response = await csrfFetch(`/api/bookings/${id}`);
@@ -21,6 +28,8 @@ export const getBookings = (id) => async dispatch => {
     return list;
   }
 }
+
+
 
 export const createBooking = (campsiteInfo) => async dispatch => {
   const { userId, dateStart, dateEnd, campsiteId} = campsiteInfo;
@@ -39,6 +48,15 @@ export const createBooking = (campsiteInfo) => async dispatch => {
     return newBooking;
   }
 }
+export const deleteBooking = (bookingId) => async dispatch => {
+  // const {bookingId} = bookingInfo;
+  const response = await csrfFetch(`/api/bookings/delete/${bookingId}`, {
+    method: 'DELETE',
+    body: JSON.stringify({ bookingId}),
+  })
+  dispatch(removeBooking());
+  return response;
+}
 
 const bookingsReducer = (state = [], action) => {
   let newState;
@@ -49,6 +67,8 @@ const bookingsReducer = (state = [], action) => {
 
     case ADD_ONE:
       newState = [...state, ...action.newBooking ]
+      return newState;
+    case REMOVE_BOOKING:
       return newState;
     default:
       return state;

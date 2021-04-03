@@ -37,21 +37,32 @@
   margin-left: 10%;
 }
 
-.pictures {
-  width: 100%;
+.pictures > .campsiteInfoPicture {
+  margin-top: 10%;
+  max-width: none;
+}
 
+.userReviews {
+  padding: 10px;
+}
+
+.userReviewButton {
+  width: 500px;
+  display: flex;
+  justify-content: space-around;
 }
 
 .picture {
   padding-right: 5%;
   padding-left: 5%;
-  padding-bottom: 5%;
+  margin-bottom: 5%;
   background-size: contain;
   background-repeat: no-repeat;
   width: 75%;
   height: 0;
   padding-top: 66.64%;
   max-width: 400px;
+  min-height: 50%;
 }
 .campPicture1 {
   background-image:  url('../images/Rocky1.jpeg');
