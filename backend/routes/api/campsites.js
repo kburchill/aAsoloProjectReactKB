@@ -25,7 +25,6 @@ campsitesRouter.get(
       where: { id: campsiteId},
       include: { model: Review }
     });
-    console.log(campsite, "here is the route===============")
     res.json(campsite)
   })
 )
@@ -33,10 +32,21 @@ campsitesRouter.get(
 campsitesRouter.post(
   "/:id(\\d+)",
   asyncHandler( async (req, res) => {
+    console.log(content, "This happened======1========")
     const campsiteId = req.params;
     const { dateStart, dateEnd } = req.body;
     const userId = findCurrentUser(req.session);
     await Booking.create({userId, dateStart, dateEnd, campsiteId})
+    res.redirect(`/bookings`)
+  })
+)
+campsitesRouter.post(
+  "/:id(\\d+)/review",
+  asyncHandler( async (req, res) => {
+    const campsiteId = req.params.id;
+    const { content, userId } = req.body;
+    console.log(content, userId, campsiteId, "This happened======2========")
+    await Review.create({userId, content, campsiteId})
     res.redirect(`/bookings`)
   })
 )

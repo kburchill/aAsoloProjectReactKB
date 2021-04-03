@@ -30,7 +30,7 @@ export const getReviews = (campsiteInfo) => async dispatch => {
 
 export const createReview = (campsiteInfo) => async dispatch => {
   const { userId, parkId, campsiteId, content} = campsiteInfo;
-  const response = await csrfFetch(`/api/parks/${parkId}/campsites/${campsiteId}`, {
+  const response = await csrfFetch(`/api/parks/${parkId}/campsites/${campsiteId}/review`, {
     method: 'POST',
     body: JSON.stringify({
       userId,

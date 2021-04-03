@@ -37,10 +37,20 @@
   margin-left: 10%;
 }
 
-/* .pictures {
-  width: 100%;
+.pictures > .campsiteInfoPicture {
+  margin-top: 10%;
+  max-width: none;
+}
 
-} */
+.userReviews {
+  padding: 10px;
+}
+
+.userReviewButton {
+  width: 500px;
+  display: flex;
+  justify-content: space-around;
+}
 
 .picture {
   padding-right: 5%;
