@@ -2,18 +2,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { createBooking} from '../../store/bookings';
+import { getReviews } from '../../store/reviews';
 import './CampsiteInfo.css';
 function CampsiteInfo() {
 
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  // const sessionBooking = useSelector(state => state.bookings.list);
   const [dateStart, setStartDate] = useState("")
   const [dateEnd, setEndDate] = useState("")
   const [errors, setErrors] = useState([])
-  const [reviews, setReviews ] = useState()
-  const paramIds = useParams()
-  const campsiteId = paramIds.campsiteId;
+  const [reviews, setReviews ] = useState([1,2,3])
+  const campsiteInfo = useParams()
+  const campsiteId = campsiteInfo.campsiteId;
 
   useEffect(() => {
     const errors = []
@@ -30,8 +30,10 @@ function CampsiteInfo() {
   }, [dateStart, dateEnd])
 
   useEffect(() => {
-    const reviews = dispatch(getReviews(campsiteId))
-  })
+    (dispatch(getReviews(campsiteInfo)));
+  },[dispatch])
+
+  const campsiteReviews = useSelector(state => state.reviews[0]) || [];
 
   const onSubmit = e =>{
     e.preventDefault();
@@ -71,7 +73,7 @@ function CampsiteInfo() {
     </div>
     <h2 className="reviewHeader">{`Reviews of`}</h2>
   <div classname="reviews">
-  This campsite was awesome!
+  {/* {campsiteReviews.Reviews.map(review => <div>{review.content}</div>)} */}
   </div>
   </form>
   )

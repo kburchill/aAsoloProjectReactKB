@@ -21,11 +21,11 @@ campsitesRouter.get(
     const campsiteId = req.params.campsiteId;
     const parkId = req.params.parkId; //available because park router
     //
-    const campsite = await Campsite.findOne({
-      where: { campsiteId: campsiteId},
-      include: {model: Review}
+    const campsite = await Campsite.findAll({
+      where: { id: campsiteId},
+      include: { model: Review }
     });
-
+    console.log(campsite, "here is the route===============")
     res.json(campsite)
   })
 )
@@ -40,5 +40,7 @@ campsitesRouter.post(
     res.redirect(`/bookings`)
   })
 )
+
+
 
 module.exports = campsitesRouter;

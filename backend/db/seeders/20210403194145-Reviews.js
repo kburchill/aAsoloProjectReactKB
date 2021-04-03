@@ -7,6 +7,8 @@ module.exports = {
         campsiteId: 1,
         content: "This was a very nice campsite, would return",
         userId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ], {});
 
@@ -14,6 +16,6 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
 
-      return queryInterface.bulkDelete('People', null, {});
+      return queryInterface.bulkDelete('Reviews', null, {});
   }
 };

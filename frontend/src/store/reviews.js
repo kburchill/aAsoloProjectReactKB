@@ -2,7 +2,7 @@ import { csrfFetch } from './csrf';
 
 const LOAD = 'reviews/LOAD';
 const ADD_ONE = 'review/ADD_ONE';
-const REMOVE_REVIEW = 'review/removeBooking';
+const REMOVE_REVIEW = 'review/removeReview';
 
 const load = list => ({
   type: LOAD,
@@ -44,9 +44,9 @@ export const createReview = (campsiteInfo) => async dispatch => {
   }
 }
 
-export const deleteBooking = (campsiteInfo) => async dispatch => {
+export const deleteReview = (campsiteInfo) => async dispatch => {
   const {parkId, campsiteId, reviewId } = campsiteInfo;
-  const response = await csrfFetch(`/api/parks/${parkId}/campsites/${campsiteId}`, {
+  const response = await csrfFetch(`/api/parks/${parkId}/campsites/${campsiteId}/reviews`, {
     method: 'DELETE',
     body: JSON.stringify({ reviewId}),
   })
@@ -61,7 +61,6 @@ const reviewsReducer = (state = [], action) => {
     case LOAD:
       newState = action.list;
       return newState;
-
     case ADD_ONE:
       newState = [...state, ...action.newReview ]
       return newState;

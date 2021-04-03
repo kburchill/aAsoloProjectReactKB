@@ -28,12 +28,12 @@ bookingsRouter.get(
 bookingsRouter.delete(
   "/delete/:id",
   asyncHandler(async (req,res ) => {
-    const { bookingId } = req.body.params;
+    const bookingId = req.params.id;
     let booking = await Booking.findByPk(bookingId);
     await booking.destroy()
   })
-)
-bookingsRouter.post(
+  )
+  bookingsRouter.post(
   "/",
   asyncHandler(async (req, res) => {
     const { userId, dateStart, dateEnd, campsiteId } = req.body;

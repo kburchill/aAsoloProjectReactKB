@@ -50,7 +50,7 @@ export const createBooking = (campsiteInfo) => async dispatch => {
 }
 export const deleteBooking = (bookingId) => async dispatch => {
   // const {bookingId} = bookingInfo;
-  const response = await csrfFetch(`/api/bookings/delete`, {
+  const response = await csrfFetch(`/api/bookings/delete/${bookingId}`, {
     method: 'DELETE',
     body: JSON.stringify({ bookingId}),
   })

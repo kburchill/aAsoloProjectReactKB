@@ -10,21 +10,23 @@ import './Bookings.css';
 function Bookings() {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
+  const bookings = useSelector(state => state.bookings) || [];
+  const [length, setLength ] = useState(bookings.length)
+  console.log(bookings.length)
 
   useEffect(() => {
     dispatch(getBookings(sessionUser.id));
-  }, [dispatch])
+  }, [ dispatch] )
 
-  const handleTheClick = (e) => {
-    console.log(e);
-  };
 
-  const bookings = useSelector(state => state.bookings) || [];
+
   return (
     <div className="current-bookings">
       <h2>Current Bookings</h2>
       {bookings.map(booking =>
+      <div>
       <UserBookings booking={booking} key={booking.id}/>
+      </div>
       )}
     </div>
   )
