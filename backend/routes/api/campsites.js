@@ -1,4 +1,4 @@
-const { Campsite } = require('../../db/models');
+const { Campsite, Review } = require('../../db/models');
 const {asyncHandler, findCurrentUser } = require('./utils');
 const express = require('express');
 const { requireAuth } = require('../../utils/auth');
@@ -21,8 +21,9 @@ campsitesRouter.get(
     const campsiteId = req.params.campsiteId;
     const parkId = req.params.parkId; //available because park router
     //
-    const campsite = await Campsite.findAll({
-      where: { campsiteId: campsiteId}
+    const campsite = await Campsite.findOne({
+      where: { campsiteId: campsiteId},
+      include: {model: Review}
     });
 
     res.json(campsite)

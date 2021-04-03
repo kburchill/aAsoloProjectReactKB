@@ -11,6 +11,7 @@ function CampsiteInfo() {
   const [dateStart, setStartDate] = useState("")
   const [dateEnd, setEndDate] = useState("")
   const [errors, setErrors] = useState([])
+  const [reviews, setReviews ] = useState()
   const paramIds = useParams()
   const campsiteId = paramIds.campsiteId;
 
@@ -28,11 +29,15 @@ function CampsiteInfo() {
     setErrors(errors);
   }, [dateStart, dateEnd])
 
+  useEffect(() => {
+    const reviews = dispatch(getReviews(campsiteId))
+  })
 
   const onSubmit = e =>{
     e.preventDefault();
       const userId = sessionUser.id;
-      dispatch(createBooking({userId, dateStart, dateEnd, campsiteId}))
+      dispatch(createBooking({userId, dateStart, dateEnd, campsiteId}
+        ))
 
   };
 

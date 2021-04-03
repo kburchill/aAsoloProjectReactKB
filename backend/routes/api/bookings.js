@@ -8,6 +8,12 @@ const bookingsRouter = express.Router();
 bookingsRouter.use(requireAuth)
 
 bookingsRouter.get(
+  "/",
+  asyncHandler(async(req,res) => {
+    res.redirect("/")
+  })
+)
+bookingsRouter.get(
   "/:id",
   asyncHandler(async (req, res) => {
     const userId = Number(req.params.id);
@@ -19,7 +25,14 @@ bookingsRouter.get(
     res.json(userBookings)
   })
 )
-
+bookingsRouter.delete(
+  "/delete/:id",
+  asyncHandler(async (req,res ) => {
+    const { bookingId } = req.body.params;
+    let booking = await Booking.findByPk(bookingId);
+    await booking.destroy()
+  })
+)
 bookingsRouter.post(
   "/",
   asyncHandler(async (req, res) => {
