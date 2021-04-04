@@ -54,25 +54,25 @@ export const getParks = () => async dispatch => {
 }
 
 const searchReducer = (state = { parks: {}, campsites: {} }, action) => {
-  let newState = { parks: {}, campsites: {} };
+  // let newState = { parks: {}, campsites: {} };
   switch (action.type) {
     case LOAD_PARKS:
       const arr = action.parks.parks;
-      console.log("Load_Parks hereAAAAAAAAAAAAAAA", arr)
       arr.forEach(park => {
-        newState.parks[park.id] = park;
+        state.parks[park.id] = park;
       })
-      return newState;
+      console.log(state, "Load_Parks hereAAAAAAAAAAAAAAA")
+      return state;
     case LOAD:
       console.log(action, "Load here==================" )
       const camps = action.campsites;
       camps.forEach(campsite => {
-        newState.campsites[campsite.id] = campsite;
+        state.campsites[campsite.id] = campsite;
       })
       // newState = { ...state }
       // newState[action.campsites.id] = action.campsites
       // console.log("Load here==================", newState)
-      return newState;
+      return state;
     default:
       return state;
   }

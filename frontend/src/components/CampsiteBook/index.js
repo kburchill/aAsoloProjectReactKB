@@ -102,8 +102,8 @@ function CampsiteBook() {
             <li key={error}>{error}</li>
           ))}
         </ul>
-        {campsites.map(campsite => <Campsites campsite={campsite} park={"Parky"} key={campsite.id} />)}
-
+        {campsites.map(campsite => <Campsites campsite={campsite} park={parksObjects[park].name} key={campsite.id} />)}
+        {}
 
       </form>
     </>
