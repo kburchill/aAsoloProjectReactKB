@@ -15,12 +15,14 @@ function CampsiteBook() {
   const [campsites, setCampsites] = useState([])
   const [errors, setErrors] = useState([])
   const dispatch = useDispatch();
-  const sessionUser = useSelector(state => state.session.user);
+  console.log("BREAKING TRYING TO GET STATE")
   const parksObjects = useSelector(state => state.search.parks) || {};
-  // let newCampsites = useSelector(state => state.search.campsites)
+  const campObjects = useSelector(state => state.search.campsites) || {};
 
   const parks = Object.values(parksObjects)
-
+  // const parks = Object.values([])
+  const camps = Object.values(campObjects)
+  console.log(camps, "______+++++++______")
 
   useEffect(() => {
     const errors = []
@@ -37,6 +39,7 @@ function CampsiteBook() {
   }, [dateStart, dateEnd])
 
   useEffect(() => {
+
     dispatch(getParks());
   }, [dispatch]);
 
@@ -49,7 +52,8 @@ function CampsiteBook() {
       setCampsites(newCampsites.campsites);
 
     } else if (errors.length >= 1) {
-      setCampsites(parksObjects[park].Campsites)
+
+      setCampsites(camps);
     }
   }, [park, dateStart, dateEnd]);
 
@@ -98,7 +102,7 @@ function CampsiteBook() {
             <li key={error}>{error}</li>
           ))}
         </ul>
-        {campsites.map(campsite => <Campsites campsite={campsite} park={parksObjects[park].name} key={campsite.id} />)}
+        {campsites.map(campsite => <Campsites campsite={campsite} park={"Parky"} key={campsite.id} />)}
 
 
       </form>

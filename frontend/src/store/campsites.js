@@ -12,6 +12,10 @@ const loadParks = parks => ({
   parks,
 })
 
+//localhost:234234/parks/1?startDate=something&endDate=somethingelse
+
+
+
 export const getCampsites = (dateSearch) => async dispatch => {
   const { park, jsonDateStart, jsonDateEnd } = dateSearch;
   const response = await csrfFetch(`/api/parks/${park}`, {
@@ -21,9 +25,21 @@ export const getCampsites = (dateSearch) => async dispatch => {
       jsonDateEnd,
     })
   })
+
   if (response.ok) {
     const campsites = await response.json();
+    console.log(campsites, "campsites in frontend fetch===============")
     return dispatch(load(campsites));
+  }
+}
+
+export const checkDate = (campsiteInfo) => async dispatch => {
+  const { parkId, campsiteId } = campsiteInfo;
+  const response = await csrfFetch(`/api/parks/${parkId}/campsites/${campsiteId}`)
+  if (response.ok) {
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -37,18 +53,25 @@ export const getParks = () => async dispatch => {
   }
 }
 
-const searchReducer = (state = {parks: {}}, action) => {
-  let newState = {parks: {}};
+const searchReducer = (state = { parks: {}, campsites: {} }, action) => {
+  let newState = { parks: {}, campsites: {} };
   switch (action.type) {
     case LOAD_PARKS:
       const arr = action.parks.parks;
+      console.log("Load_Parks hereAAAAAAAAAAAAAAA", arr)
       arr.forEach(park => {
         newState.parks[park.id] = park;
       })
       return newState;
     case LOAD:
-      newState =  {...state}
-      newState[action.campsites.id] = action.campsites
+      console.log(action, "Load here==================" )
+      const camps = action.campsites;
+      camps.forEach(campsite => {
+        newState.campsites[campsite.id] = campsite;
+      })
+      // newState = { ...state }
+      // newState[action.campsites.id] = action.campsites
+      // console.log("Load here==================", newState)
       return newState;
     default:
       return state;

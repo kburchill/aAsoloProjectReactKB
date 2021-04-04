@@ -1,4 +1,4 @@
-const { Campsite, Review } = require('../../db/models');
+const { Campsite, Review, Booking } = require('../../db/models');
 const {asyncHandler, findCurrentUser } = require('./utils');
 const express = require('express');
 const { requireAuth } = require('../../utils/auth');
@@ -32,7 +32,6 @@ campsitesRouter.get(
 campsitesRouter.post(
   "/:id(\\d+)",
   asyncHandler( async (req, res) => {
-    console.log(content, "This happened======1========")
     const campsiteId = req.params;
     const { dateStart, dateEnd } = req.body;
     const userId = findCurrentUser(req.session);
@@ -45,12 +44,54 @@ campsitesRouter.post(
   asyncHandler( async (req, res) => {
     const campsiteId = req.params.id;
     const { content, userId } = req.body;
-    console.log(content, userId, campsiteId, "This happened======2========")
     await Review.create({userId, content, campsiteId})
     res.redirect(`/bookings`)
   })
 )
 
+campsitesRouter.delete(
+  "/:id(\\d+)/reviews/delete",
+  asyncHandler(async (req,res ) => {
+    const reviewId = req.body.reviewId;
+    console.log(reviewId, "========================");
+    let review = await Review.findByPk(reviewId.id);
+    await review.destroy()
+  })
+  )
 
+campsitesRouter.get(
+  "/:id/reserve",
+  asyncHandler(async (req, res) => {
+    const parkId = req.params.parkId;
+    const { jsonDateStart, jsonDateEnd } = req.body;
+
+    const startSeconds = Date.parse(jsonDateStart)
+    const endSeconds = Date.parse(jsonDateEnd)
+    if (isNaN(startSeconds) || isNaN(endSeconds)) {
+      throw "Passed invalid dates"
+    }
+    const newStart = new Date(startSeconds)
+    const newEnd = new Date(endSeconds)
+
+    const campsites = await Campsite.findAll({
+      where:
+      {
+        parkId: parkId,
+        id:
+        {
+          [Op.notIn]: sequelize.literal(`
+          (SELECT "Campsites"."id" FROM "Campsites"
+          JOIN "Bookings" ON "Campsites"."id" = "Bookings"."campsiteId"
+          WHERE "Bookings"."dateStart" <= '${newEnd.toISOString()}'
+          AND "Bookings"."dateEnd" >= '${newStart.toISOString()}'
+          AND "Campsites"."parkId" = '${parkId}')
+          `)
+        }
+      },
+
+    })
+    return res.json(campsites);
+  })
+)
 
 module.exports = campsitesRouter;

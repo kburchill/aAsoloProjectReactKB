@@ -6,6 +6,9 @@
   width: auto;
   margin-left: 45%;
   margin-right: 45%;
+  padding: 35px;
+  background-color: rgba(245, 245, 245, 0.835);
+  border-radius: 25px;
 }
 
 body {

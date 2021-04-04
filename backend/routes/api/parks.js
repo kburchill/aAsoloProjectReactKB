@@ -17,7 +17,9 @@ parksRouter.use('/:parkId/campsites/', campsitesRouter)
 parksRouter.get(
   "/",
   asyncHandler(async (req, res) => {
+    console.log("This happened:")
     const parks = await Park.findAll({ include: Campsite });
+    console.log("========This happened next")
     res.json({ parks });
   })
 )
@@ -27,9 +29,9 @@ parksRouter.post(
   asyncHandler(async (req, res) => {
     const parkId = req.params.parkId;
     const { jsonDateStart, jsonDateEnd } = req.body;
-
-    const startSeconds = Date.parse(jsonDateStart)
-    const endSeconds = Date.parse(jsonDateEnd)
+    console.log(jsonDateEnd, "Jsondateend here =======================")
+    const startSeconds = Date.parse(jsonDateStart) || Date.parse("2021-07-16")
+    const endSeconds = Date.parse(jsonDateEnd) || Date.parse("2021-07-16")
     if (isNaN(startSeconds) || isNaN(endSeconds)) {
       throw "Passed invalid dates"
     }
@@ -53,7 +55,6 @@ parksRouter.post(
       },
 
     })
-    console.log(campsites, "campsites in router===============")
     return res.json(campsites);
   })
 )

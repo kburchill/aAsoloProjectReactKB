@@ -46,9 +46,9 @@ export const createReview = (campsiteInfo) => async dispatch => {
 
 export const deleteReview = (campsiteInfo) => async dispatch => {
   const {parkId, campsiteId, reviewId } = campsiteInfo;
-  const response = await csrfFetch(`/api/parks/${parkId}/campsites/${campsiteId}/reviews`, {
+  const response = await csrfFetch(`/api/parks/${parkId}/campsites/${campsiteId}/reviews/delete`, {
     method: 'DELETE',
-    body: JSON.stringify({ reviewId}),
+    body: JSON.stringify({ reviewId }),
   })
   dispatch(removeReview());
   return response;

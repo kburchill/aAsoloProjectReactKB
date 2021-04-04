@@ -43,7 +43,7 @@ function App() {
           <Route path="/parks/:parkId/campsites/:campsiteId">
             <CampsiteInfo />
           </Route>
-
+  
         </Switch>
       )}
     </>

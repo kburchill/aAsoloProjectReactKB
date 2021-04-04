@@ -1,10 +1,9 @@
 //components/Bookings/UserBookings.js
 import React from "react";
-import { getBookings, deleteBooking } from '../../store/bookings';
-import { useDispatch, useSelector} from "react-redux";
+import { deleteBooking } from '../../store/bookings';
+import { useDispatch} from "react-redux";
 const UserBookings = ({booking}) => {
   const dispatch = useDispatch();
-  const sessionUser = useSelector(state => state.session.user);
 
   const deleteABooking = (bookingId) => {
     dispatch(deleteBooking(bookingId))
@@ -12,7 +11,7 @@ const UserBookings = ({booking}) => {
   };
 
   return (
-    <div className="eachCampsite">
+    <div className="eachCampsite" key={booking.id}>
       <div className="campResults">
       <p>Reservation number: {booking.id}</p>
       <p>Campsite: {booking.Campsite.name}</p>
