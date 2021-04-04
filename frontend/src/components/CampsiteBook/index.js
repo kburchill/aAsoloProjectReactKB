@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getParks, getCampsites } from '../../store/campsites';
 import Campsites from './Campsites';
+import format from 'date-fns/format';
+import { addDays } from 'date-fns'
 import './CampsiteBook.css';
 
 
@@ -10,12 +12,14 @@ import './CampsiteBook.css';
 function CampsiteBook() {
 
   const [park, setPark] = useState(1)
-  const [dateStart, setStartDate] = useState(new Date())
-  const [dateEnd, setEndDate] = useState(new Date())
+  const initialDate = format(new Date(), "yyyy-MM-dd")
+  const initialEndDate = format(addDays(new Date(), 14), "yyyy-MM-dd")
+  const [dateStart, setStartDate] = useState(initialDate)
+  const [dateEnd, setEndDate] = useState(initialEndDate)
   const [campsites, setCampsites] = useState([])
   const [errors, setErrors] = useState([])
   const dispatch = useDispatch();
-  console.log(dateStart, dateEnd, "HERE ARETHE DATES")
+  console.log(dateStart, typeof(dateEnd), "HERE ARETHE DATES")
   const parksObjects = useSelector(state => state.search.parks) || {};
   const campObjects = useSelector(state => state.search.campsites) || {};
 
@@ -24,17 +28,13 @@ function CampsiteBook() {
 
   useEffect(() => {
     const errors = []
-    if (!dateStart && !dateEnd) {
-      errors.push("Please enter your desired dates")
-    }
     if (dateStart > dateEnd) {
       errors.pop();
-      errors.push("Please enter correct dates")
+      errors.push("Your start date is after your end date")
     }
-    console.log("Errors effect is happening")
     setErrors(errors);
 
-  }, [dateStart, dateEnd, park])
+  }, [dateStart, dateEnd])
 
   useEffect(() => {
     console.log("Get Parks effect is happening")
