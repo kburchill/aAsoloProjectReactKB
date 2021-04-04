@@ -10,19 +10,17 @@ import './CampsiteBook.css';
 function CampsiteBook() {
 
   const [park, setPark] = useState(1)
-  const [dateStart, setStartDate] = useState("")
-  const [dateEnd, setEndDate] = useState("")
+  const [dateStart, setStartDate] = useState(new Date())
+  const [dateEnd, setEndDate] = useState(new Date())
   const [campsites, setCampsites] = useState([])
   const [errors, setErrors] = useState([])
   const dispatch = useDispatch();
-  console.log("BREAKING TRYING TO GET STATE")
+  console.log(dateStart, dateEnd, "HERE ARETHE DATES")
   const parksObjects = useSelector(state => state.search.parks) || {};
   const campObjects = useSelector(state => state.search.campsites) || {};
 
   const parks = Object.values(parksObjects)
-  // const parks = Object.values([])
   const camps = Object.values(campObjects)
-  console.log(camps, "______+++++++______")
 
   useEffect(() => {
     const errors = []
@@ -33,17 +31,18 @@ function CampsiteBook() {
       errors.pop();
       errors.push("Please enter correct dates")
     }
-
+    console.log("Errors effect is happening")
     setErrors(errors);
 
-  }, [dateStart, dateEnd])
+  }, [dateStart, dateEnd, park])
 
   useEffect(() => {
-
+    console.log("Get Parks effect is happening")
     dispatch(getParks());
   }, [dispatch]);
 
   useEffect(async () => {
+    console.log("Search effect is happening")
     if (errors.length === 0) {
       let jsonDateStart = JSON.stringify(dateStart);
       let jsonDateEnd = JSON.stringify(dateEnd);
@@ -52,7 +51,6 @@ function CampsiteBook() {
       setCampsites(newCampsites.campsites);
 
     } else if (errors.length >= 1) {
-
       setCampsites(camps);
     }
   }, [park, dateStart, dateEnd]);
@@ -103,7 +101,6 @@ function CampsiteBook() {
           ))}
         </ul>
         {campsites.map(campsite => <Campsites campsite={campsite} park={parksObjects[park].name} key={campsite.id} />)}
-        {}
 
       </form>
     </>
