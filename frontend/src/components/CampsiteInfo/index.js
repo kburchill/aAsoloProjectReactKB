@@ -99,8 +99,8 @@ function CampsiteInfo() {
       <div className="pictures">
         <div className={`campPicture${campsiteId} picture campsiteInfoPicture`}></div>
       </div>
-      <h2 className="reviewHeader">{`Reviews of`}</h2>
-      <div classname="reviews">
+      <h2 className="reviewHeader" hidden={!(sessionUser.id)}>{`Reviews of`}</h2>
+      <div classname="reviews" hidden={!(sessionUser.id)}>
         {campsiteReviews.Reviews.map(review =>
           <div>
             <p>{`User: ${review.userId} had this to say:`}</p>
