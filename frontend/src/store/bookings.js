@@ -47,14 +47,18 @@ export const createBooking = (campsiteInfo) => async dispatch => {
     return newBooking;
   }
 }
-export const deleteBooking = (bookingId) => async dispatch => {
-  // const {bookingId} = bookingInfo;
+export const deleteBooking = (bookingInfo) => async dispatch => {
+  const {bookingId, sessionUser} = bookingInfo;
   const response = await csrfFetch(`/api/bookings/delete/${bookingId}`, {
     method: 'DELETE',
-    body: JSON.stringify({ bookingId}),
+    body: JSON.stringify({ bookingId, sessionUser}),
   })
-  dispatch(removeBooking());
-  return response;
+  if (response.ok) {
+    const newBookings = await response.json();
+    dispatch(removeBooking(newBookings));
+    return newBookings;
+
+  }
 }
 
 const bookingsReducer = (state = [], action) => {
@@ -68,7 +72,7 @@ const bookingsReducer = (state = [], action) => {
       newState = [...state, ...action.newBooking ]
       return newState;
     case REMOVE_BOOKING:
-      newState = [...state]
+      newState = [...state, ...action.removeBooking]
       return newState;
     default:
       return state;

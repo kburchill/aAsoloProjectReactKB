@@ -1,12 +1,12 @@
 //components/Bookings/UserBookings.js
 import React from "react";
 import { deleteBooking } from '../../store/bookings';
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const UserBookings = ({booking}) => {
   const dispatch = useDispatch();
-
+  const sessionUser = useSelector(state => state.session.user) || [];
   const deleteABooking = (bookingId) => {
-    dispatch(deleteBooking(bookingId))
+    dispatch(deleteBooking({bookingId, sessionUser}))
     window.location.reload();
   };
 

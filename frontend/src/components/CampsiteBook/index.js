@@ -37,12 +37,10 @@ function CampsiteBook() {
   }, [dateStart, dateEnd])
 
   useEffect(() => {
-    console.log("Get Parks effect is happening")
     dispatch(getParks());
   }, [dispatch]);
 
   useEffect(async () => {
-    console.log("Search effect is happening")
     if (errors.length === 0) {
       let jsonDateStart = JSON.stringify(dateStart);
       let jsonDateEnd = JSON.stringify(dateEnd);
@@ -54,7 +52,11 @@ function CampsiteBook() {
       setCampsites(camps);
     }
   }, [park, dateStart, dateEnd]);
-
+  useEffect(() => {
+    if (!parks || !camps){
+      window.location.reload();
+    }
+  },[parksObjects, campObjects])
   return (
     <>
       <form className="booking-form">

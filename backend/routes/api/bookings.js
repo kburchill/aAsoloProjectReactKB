@@ -28,9 +28,13 @@ bookingsRouter.get(
 bookingsRouter.delete(
   "/delete/:id",
   asyncHandler(async (req,res ) => {
-    const bookingId = req.params.id;
+    const {bookingId, sessionUser} = req.body;
     let booking = await Booking.findByPk(bookingId);
     await booking.destroy()
+    let bookings = await Booking.findAll({
+      where: {userId: sessionUser.id}
+    })
+    res.json(bookings);
   })
   )
   bookingsRouter.post(
