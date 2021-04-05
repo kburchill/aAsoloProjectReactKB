@@ -67,7 +67,7 @@
 .campPicture1 {
   background-image:  url('../images/Rocky1.jpeg');
 }
-.campPicture2 > div{
+.campPicture2 {
   background-image: url('../images/Rocky2.jpeg');
 }
 .campPicture3 {

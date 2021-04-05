@@ -1,6 +1,7 @@
 // frontend/src/components/LoginFormPage/index.js
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
+import { getParks } from '../../store/campsites'
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import './LoginForm.css';
@@ -12,6 +13,7 @@ function LoginFormPage() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
 
+  dispatch(getParks())
   if (sessionUser) return (
     <Redirect to="/" />
   );
@@ -27,10 +29,11 @@ function LoginFormPage() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="signupForm" onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
+      <h2>Welcome back!</h2>
       <label>
         Email
         <input

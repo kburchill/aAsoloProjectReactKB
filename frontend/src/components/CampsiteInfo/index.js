@@ -8,7 +8,7 @@ import './CampsiteInfo.css';
 function CampsiteInfo() {
 
   const dispatch = useDispatch();
-  const sessionUser = useSelector(state => state.session.user);
+  const sessionUser = useSelector(state => state.session.user) || false;
   const campsiteReviews = useSelector(state => state.reviews[0]) || { Reviews: [{ content: "No reviews" }] };
   const [dateStart, setStartDate] = useState("")
   const [dateEnd, setEndDate] = useState("")
@@ -17,6 +17,7 @@ function CampsiteInfo() {
   const campsiteInfo = useParams()
   const campsiteId = campsiteInfo.campsiteId;
   const parkId = campsiteInfo.parkId;
+
 
   useEffect(() => {
 
@@ -35,7 +36,6 @@ function CampsiteInfo() {
       let jsonDateEnd = JSON.stringify(dateEnd);
       const dateSearch = { jsonDateStart, jsonDateEnd, parkId, campsiteId }
       let available = dispatch(checkDate(dateSearch));
-      console.log(available, "here-------=======-----available---===========")
       if (!available) {
         errors.push("Dates not available")
       }
@@ -50,26 +50,29 @@ function CampsiteInfo() {
 
 
 
+
+  const submitReview = (content) => {
+    const userId = sessionUser.id;
+    dispatch(createReview({ userId, campsiteId, parkId, content }))
+
+    window.location.reload();
+  };
+
+  const handleDelete = (reviewId) => {
+    dispatch(deleteReview({campsiteId, parkId, reviewId}))
+    window.location.reload()
+  };
+
   const onSubmit = e => {
     e.preventDefault();
     const userId = sessionUser.id;
     dispatch(createBooking({ userId, dateStart, dateEnd, campsiteId }
     ))
+    window.location.href = "/bookings";
 
-  };
-  const submitReview = (content) => {
-    const userId = sessionUser.id;
-    dispatch(createReview({ userId, campsiteId, parkId, content }))
-    window.location.reload()
-  };
-
-  const handleDelete = (reviewId) => {
-    console.log(reviewId, "id here ====================")
-    dispatch(deleteReview({campsiteId, parkId, reviewId}))
-    window.location.reload()
   };
   return (
-    <form onSubmit={onSubmit} className="booking-form">
+    <form className="booking-form">
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
@@ -92,7 +95,7 @@ function CampsiteInfo() {
         />
 
       </label>
-      <button type="submit" disabled={errors.length}>Book</button>
+      <button  onClick={onSubmit} disabled={errors.length}>Book</button>
       <div className="pictures">
         <div className={`campPicture${campsiteId} picture campsiteInfoPicture`}></div>
       </div>
@@ -102,17 +105,18 @@ function CampsiteInfo() {
           <div>
             <p>{`User: ${review.userId} had this to say:`}</p>
             <p className="userReviews">{`${review.content}`}</p>
-            <button className="deleteReview" hidden={sessionUser.id !== review.userId} onClick={() => handleDelete(review)}>Delete review</button>
+            <button className="deleteReview" hidden={(sessionUser.id !== review.userId) || false} onClick={() => handleDelete(review)}>Delete review</button>
           </div>
         )}
         <div className="userReviewButton">
-          <p> Would you like to leave a review?</p>
+          <p hidden={!(sessionUser.id)}> Would you like to leave a review?</p>
           <textarea
             name="review"
             value={userReview}
             onChange={(e) => setReview(e.target.value)}
+            hidden={!(sessionUser.id)}
           />
-          <button disabled={!userReview.length} onClick={() => submitReview(userReview)}>Submit Review</button>
+          <button disabled={!userReview.length} hidden={!(sessionUser.id)} onClick={() => submitReview(userReview)}>Submit Review</button>
         </div>
       </div>
     </form>

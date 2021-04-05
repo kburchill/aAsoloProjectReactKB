@@ -68,6 +68,7 @@ const bookingsReducer = (state = [], action) => {
       newState = [...state, ...action.newBooking ]
       return newState;
     case REMOVE_BOOKING:
+      newState = [...state]
       return newState;
     default:
       return state;

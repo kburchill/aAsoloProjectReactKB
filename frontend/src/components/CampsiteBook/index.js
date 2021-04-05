@@ -93,7 +93,6 @@ function CampsiteBook() {
               onChange={(e) => setEndDate(e.target.value)}
             />
           </label>
-          {/* <button type="submit" className="searchButton"><i class="fas fa-search"></i></button> */}
         </div>
         <ul className="errors">
           {errors.map(error => (
