@@ -28,7 +28,6 @@ export const getCampsites = (dateSearch) => async dispatch => {
 
   if (response.ok) {
     const campsites = await response.json();
-    console.log(campsites, "campsites in frontend fetch===============")
     return dispatch(load(campsites));
   }
 }
@@ -61,10 +60,8 @@ const searchReducer = (state = { parks: {}, campsites: {} }, action) => {
       arr.forEach(park => {
         state.parks[park.id] = park;
       })
-      console.log(state, "Load_Parks hereAAAAAAAAAAAAAAA")
       return state;
     case LOAD:
-      console.log(action, "Load here==================" )
       const camps = action.campsites;
       camps.forEach(campsite => {
         state.campsites[campsite.id] = campsite;

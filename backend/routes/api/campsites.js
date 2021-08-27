@@ -53,7 +53,6 @@ campsitesRouter.delete(
   "/:id(\\d+)/reviews/delete",
   asyncHandler(async (req,res ) => {
     const reviewId = req.body.reviewId;
-    console.log(reviewId, "========================");
     let review = await Review.findByPk(reviewId.id);
     await review.destroy()
   })

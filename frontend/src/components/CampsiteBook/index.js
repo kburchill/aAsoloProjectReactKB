@@ -19,7 +19,6 @@ function CampsiteBook() {
   const [campsites, setCampsites] = useState([])
   const [errors, setErrors] = useState([])
   const dispatch = useDispatch();
-  console.log(dateStart, typeof(dateEnd), "HERE ARETHE DATES")
   const parksObjects = useSelector(state => state.search.parks) || {};
   const campObjects = useSelector(state => state.search.campsites) || {};
 
